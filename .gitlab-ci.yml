@@ -1,0 +1,22 @@
+image: docker:latest
+
+variables:
+  PROD_SERVER: greap002.intra.grenergy.com
+  TEST_SERVER: grest002.intra.grenergy.com
+
+before_script:
+  - mkdir -p ~/.docker
+  - echo "$DOCKER_CA" > ~/.docker/ca.pem
+  - echo "$DOCKER_CERT" > ~/.docker/cert.pem
+  - echo "$DOCKER_KEY" > ~/.docker/key.pem
+
+build:
+  stage: build
+  variables:
+    DOCKER_HOST: tcp://$TEST_SERVER:2376
+    DOCKER_TLS_VERIFY: 1
+  script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker build -t git-registry.intra.grenergy.com/mac-management/margarita:$CI_COMMIT_SHA .
+    - docker push git-registry.intra.grenergy.com/mac-management/margarita:$CI_COMMIT_SHA
+
