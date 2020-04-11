@@ -2,3 +2,4 @@ FROM margarita:latest
 
 ADD preferences.plist.gre /app/preferences.plist
 EXPOSE 5000
+CMD python margarita.py -p 5000 -d
