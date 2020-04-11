@@ -17,6 +17,7 @@ build:
     DOCKER_TLS_VERIFY: 1
   script:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-    - docker build -t git-registry.intra.grenergy.com/mac-management/margarita:$CI_COMMIT_SHA .
+    - docker build -t git-registry.intra.grenergy.com/mac-management/margarita:$CI_COMMIT_SHA -t git-registry.intra.grenergy.com/mac-management/margarita:latest .
     - docker push git-registry.intra.grenergy.com/mac-management/margarita:$CI_COMMIT_SHA
+    - docker push git-registry.intra.grenergy.com/mac-management/margarita:latest
 
