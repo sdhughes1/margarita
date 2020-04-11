@@ -13,5 +13,4 @@ RUN git clone --depth 1 https://github.com/wdas/reposado && \
     rm -rf reposado
 
 COPY . /app
-EXPOSE 5000
 CMD python margarita.py -p 5000
